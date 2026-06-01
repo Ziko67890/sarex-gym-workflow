@@ -1,0 +1,2087 @@
+{
+  "name": "Sarex Gym",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "gym-registration",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -272,
+        272
+      ],
+      "id": "780e8124-36cb-432a-bef0-db67260fb864",
+      "name": "Webhook",
+      "webhookId": "0f011a39-815d-4a1c-8d59-d97573a5a1cb"
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "base": {
+          "__rl": true,
+          "value": "appxQYTFxoHS5OGTn",
+          "mode": "list",
+          "cachedResultName": "SareX GYM",
+          "cachedResultUrl": "https://airtable.com/appxQYTFxoHS5OGTn"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblWHPylYgGFNXxTb",
+          "mode": "list",
+          "cachedResultName": "Table 1",
+          "cachedResultUrl": "https://airtable.com/appxQYTFxoHS5OGTn/tblWHPylYgGFNXxTb"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Gender": "={{ $json.body.submission.questions.find(q => q.name === \"Gender\").value }}",
+            "Plan": "={{ $json.body.submission.questions.find(q => q.name === \"Choose Your Plan\").value }}",
+            "Email": "={{ $json.body.submission.questions.find(q => q.name === \"Email Address\").value }}",
+            "Phone Number": "={{ $json.body.submission.questions.find(q => q.name === \"Phone number\").value }}",
+            "Full Name": "={{ $json.body.submission.questions.find(q => q.name === \"Full Name\").value }}",
+            "Emergency Name": "={{ $json.body.submission.questions[5].value }}",
+            "Emergency Phone": "={{ $json.body.submission.questions[6].value }}",
+            "Start Date": "={{ new Date($json.body.submission.submissionTime).toLocaleDateString('en-GB', { year: 'numeric', month: 'short', day: '2-digit' }).replace(/ /g, '-') }}",
+            "End Date": "={{\n  (() => {\n    const plan = $json.body.submission.questions.find(q => q.name === \"Choose Your Plan\").value;\n    const start = new Date($json.body.submission.submissionTime);\n    if (plan.includes(\"Weekly\")) start.setDate(start.getDate() + 7);\n    else if (plan.includes(\"Monthly\")) start.setMonth(start.getMonth() + 1);\n    else if (plan.includes(\"3 Month\")) start.setMonth(start.getMonth() + 3);\n    else if (plan.includes(\"6 Month\")) start.setMonth(start.getMonth() + 6);\n    return start.toLocaleDateString('en-GB', { year: 'numeric', month: 'short', day: '2-digit' }).replace(/ /g, '-');\n  })()\n}}",
+            "Total Check-ins": 0
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Full Name",
+              "displayName": "Full Name",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Phone Number",
+              "displayName": "Phone Number",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Address",
+              "displayName": "Address",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Gender",
+              "displayName": "Gender",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Male",
+                  "value": "Male"
+                },
+                {
+                  "name": "Female",
+                  "value": "Female"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Plan",
+              "displayName": "Plan",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Emergency Name",
+              "displayName": "Emergency Name",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Emergency Phone",
+              "displayName": "Emergency Phone",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Start Date",
+              "displayName": "Start Date",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "End Date",
+              "displayName": "End Date",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Profile Picture",
+              "displayName": "Profile Picture",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Last Check-in",
+              "displayName": "Last Check-in",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Total Check-ins",
+              "displayName": "Total Check-ins",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "aebfd04c-782c-4516-927b-d1ffb55c1d22",
+      "name": "Create a record"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "290999b6-2f37-401e-b95f-fb12fd2ad2e1",
+              "name": "first_name",
+              "value": "={{ $json.fields[\"Full Name\"].split(' ')[0] }}",
+              "type": "string"
+            },
+            {
+              "id": "d988d389-fdf1-4bac-89cd-3b10c2232ae3",
+              "name": "=plan",
+              "value": "={{\n  (() => {\n    const plan = $json.fields.Plan.toLowerCase();\n\n    if (plan.includes(\"week\")) return \"1 Week\";\n    if (plan.includes(\"month\")) {\n      const match = plan.match(/\\d+/);\n      return match ? match[0] + \" Month\" : \"1 Month\";\n    }\n\n    return plan;\n  })()\n}}",
+              "type": "string"
+            },
+            {
+              "id": "af64bb95-8d76-4a1a-b3ff-7985bd657954",
+              "name": "start_date",
+              "value": "={{ new Date($json.fields[\"Start Date\"] + \"T00:00:00\").toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }).replace(/ /g, '-') }}",
+              "type": "string"
+            },
+            {
+              "id": "7ac38fa6-8dfe-4a7b-8401-8dd07244696d",
+              "name": "end_date",
+              "value": "={{ new Date($json.fields[\"End Date\"] + \"T00:00:00\").toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }).replace(/ /g, '-') }}",
+              "type": "string"
+            },
+            {
+              "id": "ebc8b3ff-26dc-4951-8346-77d2a0aca05d",
+              "name": "email",
+              "value": "={{ $json.fields.Email }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        176,
+        0
+      ],
+      "id": "a1666cae-ec54-4c99-8055-c8021897e0ac",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "amount": 30
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        336,
+        0
+      ],
+      "id": "19c7edf1-7699-4feb-9f20-4874d1a60ecd",
+      "name": "Wait",
+      "webhookId": "2d93bd97-d228-4391-8be9-df6f8c63aaba"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.email }}",
+        "subject": "Welcome to SareX Gym – Your Membership is Active 💪",
+        "message": "=<!DOCTYPE html>\n<html>\n<head>\n<meta charset=\"UTF-8\">\n</head>\n\n<body style=\"margin:0; padding:0; background-color:#0f0f0f; font-family: Arial, sans-serif;\">\n\n<table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\">\n<tr>\n<td align=\"center\">\n\n<table width=\"600\" cellpadding=\"0\" cellspacing=\"0\" style=\"background:#1a1a1a; margin:40px 0; border-radius:10px; overflow:hidden;\">\n\n<!-- HEADER -->\n<tr>\n<td style=\"background:#000000; padding:25px; text-align:center; border-bottom:4px solid #ff6a00;\">\n\n<img src=\"https://i.imgur.com/b85MepO.png\" \n     alt=\"SareX Gym Logo\" \n     style=\"width:170px; max-width:100%; display:block; margin:0 auto 10px auto;\">\n\n<span style=\"color:#ffffff; font-size:13px; letter-spacing:2px;\">\nBUILT FOR STRENGTH\n</span>\n\n</td>\n</tr>\n\n<!-- BODY -->\n<tr>\n<td style=\"padding:35px; color:#e5e5e5; font-size:15px; line-height:1.7;\">\n\n<p>\nHello <strong style=\"color:#ff6a00;\">{{ $json.first_name }}</strong>,\n</p>\n\n<p>\nWelcome to <strong style=\"color:#ffffff;\">SareX Gym</strong>.\nYour membership has been <strong style=\"color:#ff6a00;\">successfully activated</strong>.\n</p>\n\n<p>\nYou are now part of a high-performance environment built for strength, discipline, and real results.\n</p>\n\n<!-- DETAILS -->\n<table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"margin:25px 0; background:#111111; border-left:5px solid #ff6a00; border-radius:6px;\">\n<tr>\n<td style=\"padding:18px;\">\n\n<p>\n<strong style=\"color:#888;\">MEMBERSHIP PLAN</strong><br>\n<span style=\"color:#ffffff;\">{{ $json.plan }}</span>\n</p>\n\n<p>\n<strong style=\"color:#888;\">START DATE</strong><br>\n<span style=\"color:#ffffff;\">{{ $json.start_date }}\n</span>\n</p>\n\n<p>\n<strong style=\"color:#888;\">END DATE</strong><br>\n<span style=\"color:#ffffff;\">{{ $json.end_date }}\n</span>\n</p>\n\n</td>\n</tr>\n</table>\n\n<p>\nAt SareX Gym, results are earned through consistency and discipline.\nEvery session moves you closer to your strongest self.\n</p>\n\n<p style=\"color:#ff6a00; font-weight:bold;\">\nStay consistent. Stay powerful.\n</p>\n\n<!-- BUTTON -->\n<div style=\"text-align:center; margin-top:30px;\">\n<a href=\"#\" style=\"background:#ff6a00; color:#ffffff; padding:14px 30px; text-decoration:none; border-radius:5px; font-weight:bold;\">\nSTART TRAINING →\n</a>\n</div>\n\n<p style=\"margin-top:25px; font-size:13px; color:#888; text-align:center;\">\n⚠️ Your membership expires on \n<strong style=\"color:#ffffff;\">{{ $json.end_date }}\n</strong>\n</p>\n\n</td>\n</tr>\n\n<!-- FOOTER -->\n<tr>\n<td style=\"padding:20px; text-align:center; font-size:12px; color:#666; border-top:1px solid #222;\">\n© 2026 SareX Gym • Built for Strength\n</td>\n</tr>\n\n</table>\n\n</td>\n</tr>\n</table>\n\n</body>\n</html>",
+        "options": {
+          "appendAttribution": false,
+          "senderName": "SareX Gym"
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        560,
+        16
+      ],
+      "id": "c1e3f606-d133-414b-a242-b50733f4d611",
+      "name": "Welcome message",
+      "webhookId": "d8d284d2-1d94-4d30-bc30-16b38d044bae"
+    },
+    {
+      "parameters": {
+        "url": "https://prod-fillout-oregon-s3.s3.us-west-2.amazonaws.com/orgid-645325/flowpublicid-7uWB4rxL3mus/3abe150c-a20c-45e9-8824-e744a9f1d8f0-3ssWmekQoz72CkShZjYZCtVRLKHlEWNOLnJQdbyIfeevhn7CxAC5osO2vgYa10COY74ZCDRhbqyOP0lA3ikCFbXCrNPJACDjapo/WhatsApp-Image-2026-04-08-at-5.44.56-PM.jpg",
+        "options": {
+          "redirect": {
+            "redirect": {}
+          },
+          "response": {
+            "response": {
+              "responseFormat": "file",
+              "outputPropertyName": "photo.jpg"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        144,
+        272
+      ],
+      "id": "bc4a294f-f3e5-4446-afe0-7d1c86139606",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.imgbb.com/1/upload",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "key",
+              "value": "322c17e2270b7d68e3f6c3863876362d"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "parameterType": "formBinaryData",
+              "name": "image",
+              "inputDataFieldName": "photo.jpg"
+            }
+          ]
+        },
+        "options": {
+          "redirect": {
+            "redirect": {}
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        352,
+        272
+      ],
+      "id": "4b12699c-b060-4d87-9f0e-5b8444aa4bed",
+      "name": "HTTP Request1"
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "base": {
+          "__rl": true,
+          "value": "appxQYTFxoHS5OGTn",
+          "mode": "list",
+          "cachedResultName": "SareX GYM",
+          "cachedResultUrl": "https://airtable.com/appxQYTFxoHS5OGTn"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblWHPylYgGFNXxTb",
+          "mode": "list",
+          "cachedResultName": "Table 1",
+          "cachedResultUrl": "https://airtable.com/appxQYTFxoHS5OGTn/tblWHPylYgGFNXxTb"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Gender": "={{ $('Webhook').item.json.body.submission.questions[1].value }}",
+            "Plan": "={{ $('Webhook').item.json.body.submission.questions[7].value.split('Plan')[0].trim() }}",
+            "Email": "={{ $('Webhook').item.json.body.submission.questions[3].value }}",
+            "Phone Number": "={{ $('Webhook').item.json.body.submission.questions[2].value }}",
+            "Full Name": "={{ $('Webhook').item.json.body.submission.questions[0].value }}",
+            "Emergency Name": "={{ $('Webhook').item.json.body.submission.questions[5].value }}",
+            "Emergency Phone": "={{ $('Webhook').item.json.body.submission.questions[6].value }}",
+            "Start Date": "={{ DateTime.fromISO($('Webhook').item.json.body.submission.submissionTime).toFormat('dd MMMM yyyy') }}",
+            "End Date": "={{ \n  $('Webhook').item.json.body.submission.questions[7].value.includes('Weekly') \n  ? DateTime.fromISO($('Webhook').item.json.body.submission.submissionTime).plus({ weeks: 1 }).toFormat('dd MMMM yyyy')\n  : $('Webhook').item.json.body.submission.questions[7].value.includes('1 Months')\n  ? DateTime.fromISO($('Webhook').item.json.body.submission.submissionTime).plus({ months: 1 }).toFormat('dd MMMM yyyy')\n  : $('Webhook').item.json.body.submission.questions[7].value.includes('3 Months')\n  ? DateTime.fromISO($('Webhook').item.json.body.submission.submissionTime).plus({ months: 3 }).toFormat('dd MMMM yyyy')\n  : DateTime.fromISO($('Webhook').item.json.body.submission.submissionTime).plus({ months: 6 }).toFormat('dd MMMM yyyy')\n}}",
+            "Profile Picture": "=[{ \"url\": \"{{ $json.data.url }}\" }]",
+            "Address": "={{ $('Webhook').item.json.body.submission.questions[4].value.address }}, {{ $('Webhook').item.json.body.submission.questions[4].value.city }}, {{ $('Webhook').item.json.body.submission.questions[4].value.state }}, {{ $('Webhook').item.json.body.submission.questions[4].value.country }}",
+            "Total Check-ins": 0
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Full Name",
+              "displayName": "Full Name",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Phone Number",
+              "displayName": "Phone Number",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Address",
+              "displayName": "Address",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Gender",
+              "displayName": "Gender",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Male",
+                  "value": "Male"
+                },
+                {
+                  "name": "Female",
+                  "value": "Female"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Plan",
+              "displayName": "Plan",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Emergency Name",
+              "displayName": "Emergency Name",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Emergency Phone",
+              "displayName": "Emergency Phone",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Start Date",
+              "displayName": "Start Date",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "End Date",
+              "displayName": "End Date",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Profile Picture",
+              "displayName": "Profile Picture",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Last Check-in",
+              "displayName": "Last Check-in",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Total Check-ins",
+              "displayName": "Total Check-ins",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        592,
+        272
+      ],
+      "id": "d67057b9-4e42-4555-8a85-c6c4ebfab273",
+      "name": "Create a record1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "0df827ee-52f3-48fc-b703-f9eaca61ce59",
+              "name": "first_name",
+              "value": "={{ $('Webhook').item.json.body.submission.questions[0].value.split(' ')[0]",
+              "type": "string"
+            },
+            {
+              "id": "74d89a3a-df72-4e20-82a5-cb9d2c272fd4",
+              "name": "plan",
+              "value": "={{ $('Webhook').item.json.body.submission.questions[7].value.split('Plan')[0].trim() }}",
+              "type": "string"
+            },
+            {
+              "id": "81f69707-1c17-4577-ae53-3571becb7216",
+              "name": "start_date",
+              "value": "={{ DateTime.fromISO($('Webhook').item.json.body.submission.submissionTime).toFormat('dd MMMM yyyy') }}",
+              "type": "string"
+            },
+            {
+              "id": "81172dd6-f192-45cb-abd5-43d69bf55a17",
+              "name": "end_date",
+              "value": "={{ $('Webhook').item.json.body.submission.questions[7].value.includes('Weekly') ? DateTime.fromISO($('Webhook').item.json.body.submission.submissionTime).plus({ weeks: 1 }).toFormat('dd MMMM yyyy') : $('Webhook').item.json.body.submission.questions[7].value.includes('1 Months') ? DateTime.fromISO($('Webhook').item.json.body.submission.submissionTime).plus({ months: 1 }).toFormat('dd MMMM yyyy') : $('Webhook').item.json.body.submission.questions[7].value.includes('3 Months') ? DateTime.fromISO($('Webhook').item.json.body.submission.submissionTime).plus({ months: 3 }).toFormat('dd MMMM yyyy') : DateTime.fromISO($('Webhook').item.json.body.submission.submissionTime).plus({ months: 6 }).toFormat('dd MMMM yyyy') }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        800,
+        272
+      ],
+      "id": "338ce983-1030-4a14-a668-55fa44cd15a6",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "amount": 1,
+        "unit": "minutes"
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1008,
+        272
+      ],
+      "id": "d0dcac12-8ee7-4af0-a01a-f0fa91149aba",
+      "name": "Wait1",
+      "webhookId": "d03ba0dd-6527-4f38-89ea-51c35a5e483b"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Webhook').item.json.body.submission.questions[3].value }}",
+        "subject": "Welcome to SareX Gym – Your Membership is Active 💪",
+        "message": "=<!DOCTYPE html>\n<html>\n<head>\n<meta charset=\"UTF-8\">\n</head>\n\n<body style=\"margin:0; padding:0; background-color:#0f0f0f; font-family: Arial, sans-serif;\">\n\n<table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\">\n<tr>\n<td align=\"center\">\n\n<table width=\"600\" cellpadding=\"0\" cellspacing=\"0\" style=\"background:#1a1a1a; margin:40px 0; border-radius:10px; overflow:hidden;\">\n\n<!-- HEADER -->\n<tr>\n<td style=\"background:#000000; padding:25px; text-align:center; border-bottom:4px solid #ff6a00;\">\n\n<img src=\"https://i.imgur.com/b85MepO.png\" \n     alt=\"SareX Gym Logo\" \n     style=\"width:170px; max-width:100%; display:block; margin:0 auto 10px auto;\">\n\n<span style=\"color:#ffffff; font-size:13px; letter-spacing:2px;\">\nBUILT FOR STRENGTH\n</span>\n\n</td>\n</tr>\n\n<!-- BODY -->\n<tr>\n<td style=\"padding:35px; color:#e5e5e5; font-size:15px; line-height:1.7;\">\n\n<p>\nHello <strong style=\"color:#ff6a00;\">{{ $json.first_name }}</strong>,\n</p>\n\n<p>\nWelcome to <strong style=\"color:#ffffff;\">SareX Gym</strong>.\nYour membership has been <strong style=\"color:#ff6a00;\">successfully activated</strong>.\n</p>\n\n<p>\nYou are now part of a high-performance environment built for strength, discipline, and real results.\n</p>\n\n<!-- DETAILS -->\n<table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"margin:25px 0; background:#111111; border-left:5px solid #ff6a00; border-radius:6px;\">\n<tr>\n<td style=\"padding:18px;\">\n\n<p>\n<strong style=\"color:#888;\">MEMBERSHIP PLAN</strong><br>\n<span style=\"color:#ffffff;\">{{ $json.plan }}</span>\n</p>\n\n<p>\n<strong style=\"color:#888;\">START DATE</strong><br>\n<span style=\"color:#ffffff;\">{{ $json.start_date }}\n</span>\n</p>\n\n<p>\n<strong style=\"color:#888;\">END DATE</strong><br>\n<span style=\"color:#ffffff;\">{{ $json.end_date }}\n</span>\n</p>\n\n</td>\n</tr>\n</table>\n\n<p>\nAt SareX Gym, results are earned through consistency and discipline.\nEvery session moves you closer to your strongest self.\n</p>\n\n<p style=\"color:#ff6a00; font-weight:bold;\">\nStay consistent. Stay powerful.\n</p>\n\n<!-- BUTTON -->\n<div style=\"text-align:center; margin-top:30px;\">\n<a href=\"#\" style=\"background:#ff6a00; color:#ffffff; padding:14px 30px; text-decoration:none; border-radius:5px; font-weight:bold;\">\nSTART TRAINING →\n</a>\n</div>\n\n<p style=\"margin-top:25px; font-size:13px; color:#888; text-align:center;\">\n⚠️ Your membership expires on \n<strong style=\"color:#ffffff;\">{{ $json.end_date }}\n</strong>\n</p>\n\n</td>\n</tr>\n\n<!-- FOOTER -->\n<tr>\n<td style=\"padding:20px; text-align:center; font-size:12px; color:#666; border-top:1px solid #222;\">\n© 2026 SareX Gym • Built for Strength\n</td>\n</tr>\n\n</table>\n\n</td>\n</tr>\n</table>\n\n</body>\n</html>",
+        "options": {
+          "appendAttribution": false,
+          "senderName": "SareX GYM"
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1216,
+        272
+      ],
+      "id": "2f0a6332-d28f-4c2b-b03b-98764ab80732",
+      "name": "Welcome message1",
+      "webhookId": "d8d284d2-1d94-4d30-bc30-16b38d044bae"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 8
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        96,
+        560
+      ],
+      "id": "b585bbab-f615-4dbf-b113-95925cbd1109",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "operation": "search",
+        "base": {
+          "__rl": true,
+          "value": "appxQYTFxoHS5OGTn",
+          "mode": "list",
+          "cachedResultName": "SareX GYM",
+          "cachedResultUrl": "https://airtable.com/appxQYTFxoHS5OGTn"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblWHPylYgGFNXxTb",
+          "mode": "list",
+          "cachedResultName": "Table 1",
+          "cachedResultUrl": "https://airtable.com/appxQYTFxoHS5OGTn/tblWHPylYgGFNXxTb"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        304,
+        560
+      ],
+      "id": "66e13a89-65fc-4c34-89a5-505f103569b6",
+      "name": "Search records"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst seen = new Set();\nconst results = [];\n\nfor (const item of items) {\n  if (!item.json.fields || !item.json.fields['End Date']) continue;\n  \n  const email = item.json.fields['Email'];\n  \n  if (!seen.has(email)) {\n    seen.add(email);\n    results.push(item);\n  }\n}\n\nreturn results;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        512,
+        560
+      ],
+      "id": "1302f756-952d-43de-984b-4470da99cb70",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst results = [];\n\nfor (const item of items) {\n  const endDate = DateTime.fromISO(item.json.fields['End Date']);\n  const today = DateTime.now().setZone('Africa/Lagos');\n  const daysLeft = Math.round(endDate.diff(today, 'days').days);\n\n  if (daysLeft === 3) {\n    results.push({\n      json: {\n        fields: item.json.fields,\n        id: item.json.id,\n        createdTime: item.json.createdTime,\n        daysLeft: daysLeft,\n        firstName: item.json.fields['Full Name'].split(' ')[0]\n      }\n    });\n  }\n}\n\nreturn results;  "
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        720,
+        560
+      ],
+      "id": "decdc8a0-b544-4824-899d-b8c7b25e228f",
+      "name": "Code in JavaScript1"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "gym-check-in",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        224,
+        912
+      ],
+      "id": "ef23cf81-a852-4641-87ff-e5d288f3c9a7",
+      "name": "Webhook1",
+      "webhookId": "a2ef77e0-9cd3-45eb-8997-25e233827b77"
+    },
+    {
+      "parameters": {
+        "operation": "search",
+        "base": {
+          "__rl": true,
+          "value": "appxQYTFxoHS5OGTn",
+          "mode": "list",
+          "cachedResultName": "SareX GYM",
+          "cachedResultUrl": "https://airtable.com/appxQYTFxoHS5OGTn"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblWHPylYgGFNXxTb",
+          "mode": "list",
+          "cachedResultName": "Table 1",
+          "cachedResultUrl": "https://airtable.com/appxQYTFxoHS5OGTn/tblWHPylYgGFNXxTb"
+        },
+        "filterByFormula": "={Email} = '{{ $json.body.submission.questions[1].value }}'",
+        "returnAll": false,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        432,
+        912
+      ],
+      "id": "7239d406-cc15-422e-a7bf-ac5429dc12bf",
+      "name": "Search records1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "0484bf7a-577a-40e5-9a74-562d96b878de",
+              "leftValue": "={{ $json.endDate }}",
+              "rightValue": "={{ DateTime.now().toFormat('yyyy-MM-dd') }}",
+              "operator": {
+                "type": "string",
+                "operation": "notEquals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1264,
+        912
+      ],
+      "id": "0eb4b4d2-5dad-495f-b525-c1e8d986f2b5",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst seen = new Set();\nconst results = [];\n\nfor (const item of items) {\n  const email = item.json.fields['Email'];\n  if (!seen.has(email)) {\n    seen.add(email);\n    results.push(item);\n  }\n}\n\nreturn results;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        640,
+        912
+      ],
+      "id": "a9ed48cd-e07f-4ea7-9149-91cc37c1c498",
+      "name": "Code in JavaScript2"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "base": {
+          "__rl": true,
+          "value": "appxQYTFxoHS5OGTn",
+          "mode": "list",
+          "cachedResultName": "SareX GYM",
+          "cachedResultUrl": "https://airtable.com/appxQYTFxoHS5OGTn"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblWHPylYgGFNXxTb",
+          "mode": "list",
+          "cachedResultName": "Table 1",
+          "cachedResultUrl": "https://airtable.com/appxQYTFxoHS5OGTn/tblWHPylYgGFNXxTb"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "id": "={{ $json.recordid }}",
+            "Last Check-in": "={{ DateTime.now().setZone('Africa/Lagos').toFormat('yyyy-MM-dd HH:mm') }}",
+            "Total Check-ins": "={{ Number($json.totalCheckins) + 1 }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": false
+            },
+            {
+              "id": "Full Name",
+              "displayName": "Full Name",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Phone Number",
+              "displayName": "Phone Number",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Address",
+              "displayName": "Address",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Gender",
+              "displayName": "Gender",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Male",
+                  "value": "Male"
+                },
+                {
+                  "name": "Female",
+                  "value": "Female"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Plan",
+              "displayName": "Plan",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Emergency Name",
+              "displayName": "Emergency Name",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Emergency Phone",
+              "displayName": "Emergency Phone",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Start Date",
+              "displayName": "Start Date",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "End Date",
+              "displayName": "End Date",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Profile Picture",
+              "displayName": "Profile Picture",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Last Check-in",
+              "displayName": "Last Check-in",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Total Check-ins",
+              "displayName": "Total Check-ins",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        1504,
+        864
+      ],
+      "id": "6c02d966-0e7b-4116-bf79-b9ab27d6fa36",
+      "name": "Update record"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "caec04db-5b92-409a-b8d1-aca975a289e1",
+              "name": "email",
+              "value": "={{ $json.fields['Email'] }}",
+              "type": "string"
+            },
+            {
+              "id": "aae8554b-af94-4db2-924e-98e3ff6d502d",
+              "name": "firstName",
+              "value": "={{ $json.fields['Full Name'].split(' ')[0] }}",
+              "type": "string"
+            },
+            {
+              "id": "0e8f13f6-9d19-45a5-8ce5-547be5300acb",
+              "name": "plan",
+              "value": "={{ $json.fields['Plan'] }}",
+              "type": "string"
+            },
+            {
+              "id": "df37ab72-8afd-4c02-8f93-4c70c1b7eb60",
+              "name": "endDate",
+              "value": "={{ $json.fields['End Date'] }}",
+              "type": "string"
+            },
+            {
+              "id": "7342184b-e3d3-4581-b72d-1aeb47fe95ff",
+              "name": "recordid",
+              "value": "={{ $json.id }}",
+              "type": "string"
+            },
+            {
+              "id": "99b78011-ffa2-4e90-a3a1-35ef8a3c4fa4",
+              "name": "totalCheckins",
+              "value": "={{ Number($json.fields['Total Check-ins'] ?? 0) }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        848,
+        912
+      ],
+      "id": "5c5e3018-2521-4d47-b169-c3732b580ca1",
+      "name": "Edit Fields3"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Edit Fields3').item.json.email }}",
+        "subject": "⚠️ Membership Expired — SareX Gym",
+        "message": "=<!DOCTYPE html>\n<html>\n<body style=\"margin:0; padding:0; background-color:#0f0f0f; font-family: Arial, sans-serif;\">\n  <table width=\"100%\" style=\"padding:30px 0; background-color:#0f0f0f;\">\n    <tr>\n      <td align=\"center\">\n        <table width=\"600\" style=\"background-color:#1a1a1a; border-radius:10px; overflow:hidden;\">\n\n          <!-- HEADER -->\n          <tr>\n            <td style=\"background-color:#1a1a1a; padding:30px; text-align:center;\">\n              \n              <img src=\"https://i.imgur.com/b85MepO.png\" \n                   alt=\"SareX Gym Logo\" \n                   style=\"width:150px; max-width:100%; display:block; margin:0 auto 15px auto;\">\n\n              <h1 style=\"color:#FF6600; margin:0; font-size:26px;\">SAREX GYM</h1>\n              <p style=\"color:#ffffff; margin:5px 0 0 0; font-size:12px;\">\n                STRENGTH • DISCIPLINE • RESULTS\n              </p>\n            </td>\n          </tr>\n\n          <tr><td style=\"background-color:#FF6600; height:5px;\"></td></tr>\n\n          <!-- BODY -->\n          <tr>\n            <td style=\"padding:40px;\">\n              <h2 style=\"color:#FF3300;\">⚠️ Membership Expired!</h2>\n\n              <p style=\"color:#cccccc; font-size:15px;\">\n                Hi <strong style=\"color:#FF6600;\">{{ $json.firstName }}</strong>,\n              </p>\n\n              <p style=\"color:#cccccc; font-size:15px; line-height:1.6;\">\n                Your <strong style=\"color:#ffffff;\">SareX Gym</strong> membership has \n                <strong style=\"color:#FF3300;\">expired</strong>. You are currently unable to check in.\n              </p>\n\n              <!-- DETAILS BOX -->\n              <table width=\"100%\" style=\"background-color:#111111; border-radius:8px; border-left:5px solid #FF3300; margin-top:20px;\">\n                <tr>\n                  <td style=\"padding:25px;\">\n                    <table width=\"100%\">\n                      <tr>\n                        <td style=\"color:#999999; font-size:14px; padding:8px 0; border-bottom:1px solid #333;\">\n                          📋 Plan\n                        </td>\n                        <td style=\"color:#ffffff; font-size:14px; padding:8px 0; border-bottom:1px solid #333; text-align:right;\">\n                          {{ $json.plan }}\n                        </td>\n                      </tr>\n                      <tr>\n                        <td style=\"color:#999999; font-size:14px; padding:8px 0;\">\n                          🗓️ Expired On\n                        </td>\n                        <td style=\"color:#FF3300; font-size:14px; padding:8px 0; text-align:right;\">\n                          {{ $json.endDate }}\n                        </td>\n                      </tr>\n                    </table>\n                  </td>\n                </tr>\n              </table>\n\n              <p style=\"color:#cccccc; font-size:14px; margin-top:25px; text-align:center;\">\n                Choose a plan below and continue your progress 💪\n              </p>\n\n              <!-- PAYSTACK PLAN BUTTONS -->\n              <table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"margin-top:20px;\">\n                <tr>\n                  <td width=\"50%\" style=\"padding:5px;\">\n                    <a href=\"https://paystack.shop/pay/ol1ogsne89\" \n                    style=\"display:block; background-color:#111111; color:#FF6600; \n                    padding:15px 10px; border-radius:8px; text-decoration:none; \n                    font-size:14px; font-weight:bold; text-align:center;\n                    border:2px solid #FF6600;\">\n                      ⚡ Weekly Plan<br>\n                      <span style=\"font-size:12px; color:#999999;\">₦8,000</span>\n                    </a>\n                  </td>\n\n                  <td width=\"50%\" style=\"padding:5px;\">\n                    <a href=\"https://paystack.shop/pay/4f8v34zev8\" \n                    style=\"display:block; background-color:#FF6600; color:#ffffff; \n                    padding:15px 10px; border-radius:8px; text-decoration:none; \n                    font-size:14px; font-weight:bold; text-align:center;\">\n                      💪 1 Month Plan<br>\n                      <span style=\"font-size:12px;\">₦15,000</span>\n                    </a>\n                  </td>\n                </tr>\n\n                <tr>\n                  <td width=\"50%\" style=\"padding:5px;\">\n                    <a href=\"https://paystack.shop/pay/ot92q25-zl\" \n                    style=\"display:block; background-color:#111111; color:#FF6600; \n                    padding:15px 10px; border-radius:8px; text-decoration:none; \n                    font-size:14px; font-weight:bold; text-align:center;\n                    border:2px solid #FF6600;\">\n                      🔥 3 Months Plan<br>\n                      <span style=\"font-size:12px; color:#999999;\">₦40,000</span>\n                    </a>\n                  </td>\n\n                  <td width=\"50%\" style=\"padding:5px;\">\n                    <a href=\"https://paystack.shop/pay/zddct67yes\" \n                    style=\"display:block; background-color:#111111; color:#FF6600; \n                    padding:15px 10px; border-radius:8px; text-decoration:none; \n                    font-size:14px; font-weight:bold; text-align:center;\n                    border:2px solid #FF6600;\">\n                      ⭐ 6 Months Plan<br>\n                      <span style=\"font-size:12px; color:#999999;\">₦65,000</span>\n                    </a>\n                  </td>\n                </tr>\n              </table>\n\n            </td>\n          </tr>\n\n          <tr><td style=\"background-color:#FF6600; height:5px;\"></td></tr>\n\n          <!-- FOOTER -->\n          <tr>\n            <td style=\"background-color:#1a1a1a; padding:20px; text-align:center;\">\n              <p style=\"color:#777777; font-size:12px; margin:0;\">\n                © 2026 SareX Gym • Built for Strength\n              </p>\n            </td>\n          </tr>\n\n        </table>\n      </td>\n    </tr>\n  </table>\n</body>\n</html>",
+        "options": {
+          "appendAttribution": false,
+          "senderName": "SareX GYM"
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1536,
+        1056
+      ],
+      "id": "53496993-0bd8-454a-b1d0-8792b699d285",
+      "name": "Expired Message",
+      "webhookId": "5d831673-783b-462c-9422-c4224c3ed31a"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.fields['Email'] }}",
+        "subject": "=⚠️ Your Gym Membership Expires in 3 Days, {{ $json.fields['Full Name'].split(' ')[0] }}!",
+        "message": "=<!DOCTYPE html>\n<html>\n<body style=\"margin:0; padding:0; background-color:#f4f4f4; font-family: Arial, sans-serif;\">\n  <table width=\"100%\" style=\"padding:30px 0; background-color:#f4f4f4;\">\n    <tr>\n      <td align=\"center\">\n        <table width=\"600\" style=\"background-color:#ffffff; border-radius:10px; overflow:hidden;\">\n\n          <tr>\n            <td style=\"background-color:#1a1a1a; padding:30px; text-align:center;\">\n              <h1 style=\"color:#FF6600; margin:0; font-size:26px;\">SAREX GYM</h1>\n              <p style=\"color:#ffffff; margin:5px 0 0 0; font-size:12px;\">STRENGTH • DISCIPLINE • RESULTS</p>\n            </td>\n          </tr>\n\n          <tr><td style=\"background-color:#FF6600; height:5px;\"></td></tr>\n\n          <tr>\n            <td style=\"padding:40px;\">\n              <h2 style=\"color:#1a1a1a;\">⚠️ Membership Expiring Soon!</h2>\n              <p style=\"color:#555555; font-size:15px;\">\n                Hi <strong style=\"color:#FF6600;\">{{ $json.firstName }}</strong>,\n              </p>\n              <p style=\"color:#555555; font-size:15px; line-height:1.6;\">\n                Your <strong>SareX Gym</strong> membership is expiring in <strong style=\"color:#FF6600;\">3 days</strong>. Renew now to keep crushing your goals! 💪\n              </p>\n\n              <!-- MEMBERSHIP DETAILS -->\n              <table width=\"100%\" style=\"background-color:#1a1a1a; border-radius:8px; border-left:5px solid #FF6600; margin-top:20px;\">\n                <tr>\n                  <td style=\"padding:25px;\">\n                    <table width=\"100%\">\n                      <tr>\n                        <td style=\"color:#999999; font-size:14px; padding:8px 0; border-bottom:1px solid #333;\">📋 Current Plan</td>\n                        <td style=\"color:#ffffff; font-size:14px; padding:8px 0; border-bottom:1px solid #333; text-align:right;\">{{ $json.fields['Plan'] }}</td>\n                      </tr>\n                      <tr>\n                        <td style=\"color:#999999; font-size:14px; padding:8px 0;\">📅 Expires On</td>\n                        <td style=\"color:#FF6600; font-size:14px; padding:8px 0; text-align:right;\">{{ $json.fields['End Date'] }}</td>\n                      </tr>\n                    </table>\n                  </td>\n                </tr>\n              </table>\n\n              <!-- PLAN BUTTONS -->\n              <p style=\"color:#555555; font-size:15px; text-align:center; margin-top:30px; margin-bottom:10px;\">\n                <strong>Choose your renewal plan:</strong>\n              </p>\n\n              <table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\">\n                <tr>\n                  <td width=\"50%\" style=\"padding:5px;\">\n                    <a href=\"https://paystack.shop/pay/ol1ogsne89\" \n                    style=\"display:block; background-color:#1a1a1a; color:#FF6600; \n                    padding:15px 10px; border-radius:8px; text-decoration:none; \n                    font-size:14px; font-weight:bold; text-align:center;\n                    border:2px solid #FF6600;\">\n                      ⚡ Weekly Plan<br>\n                      <span style=\"font-size:12px; color:#999999;\">₦8,000</span>\n                    </a>\n                  </td>\n                  <td width=\"50%\" style=\"padding:5px;\">\n                    <a href=\"https://paystack.shop/pay/4f8v34zev8\" \n                    style=\"display:block; background-color:#FF6600; color:#ffffff; \n                    padding:15px 10px; border-radius:8px; text-decoration:none; \n                    font-size:14px; font-weight:bold; text-align:center;\">\n                      💪 1 Month Plan<br>\n                      <span style=\"font-size:12px; color:#ffffff;\">₦15,000</span>\n                    </a>\n                  </td>\n                </tr>\n                <tr>\n                  <td width=\"50%\" style=\"padding:5px;\">\n                    <a href=\"https://paystack.shop/pay/ot92q25-zl\" \n                    style=\"display:block; background-color:#1a1a1a; color:#FF6600; \n                    padding:15px 10px; border-radius:8px; text-decoration:none; \n                    font-size:14px; font-weight:bold; text-align:center;\n                    border:2px solid #FF6600;\">\n                      🔥 3 Months Plan<br>\n                      <span style=\"font-size:12px; color:#999999;\">₦40,000</span>\n                    </a>\n                  </td>\n                  <td width=\"50%\" style=\"padding:5px;\">\n                    <a href=\"https://paystack.shop/pay/zddct67yes\" \n                    style=\"display:block; background-color:#1a1a1a; color:#FF6600; \n                    padding:15px 10px; border-radius:8px; text-decoration:none; \n                    font-size:14px; font-weight:bold; text-align:center;\n                    border:2px solid #FF6600;\">\n                      ⭐ 6 Months Plan<br>\n                      <span style=\"font-size:12px; color:#999999;\">₦65,000</span>\n                    </a>\n                  </td>\n                </tr>\n              </table>\n\n              <p style=\"color:#555555; font-size:13px; text-align:center; margin-top:20px;\">\n                After payment you will be redirected to complete your renewal form 📋\n              </p>\n\n            </td>\n          </tr>\n\n          <tr><td style=\"background-color:#FF6600; height:5px;\"></td></tr>\n\n          <tr>\n            <td style=\"background-color:#1a1a1a; padding:20px; text-align:center;\">\n              <p style=\"color:#999999; font-size:12px; margin:0;\">© 2026 SareX Gym. All rights reserved.</p>\n            </td>\n          </tr>\n\n        </table>\n      </td>\n    </tr>\n  </table>\n</body>\n</html>",
+        "options": {
+          "appendAttribution": false,
+          "senderName": "SareX GYM"
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1216,
+        496
+      ],
+      "id": "a65e8e27-e3e3-467a-ae7a-2a47a7ba68a2",
+      "name": "3 days warning message",
+      "webhookId": "5f46b38b-a748-4940-89e4-c371273511f0",
+      "executeOnce": true
+    },
+    {
+      "parameters": {
+        "chatId": "6268282507",
+        "text": "=🏋️ New Check-in — SareX Gym\n\n👤 Member: {{ $('Update record').item.json.fields['Full Name'] }}\n📧 Email: {{ $('Update record').item.json.fields.Email }}\n📋 Plan: {{ $('Update record').item.json.fields.Plan }}\n✅ Total Check-ins: {{ $('Update record').item.json.fields['Total Check-ins'] }}\n📅 Date: {{ DateTime.now().setZone('Africa/Lagos').toFormat('dd MMMM yyyy') }} \n⏰ Time: {{ DateTime.now().setZone('Africa/Lagos').toFormat('HH:mm') }} \n🗓️ Expires: {{ $('Update record').item.json.fields['End Date'] }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1888,
+        864
+      ],
+      "id": "7451bd55-5e46-4de3-980e-6a6cd1f0909b",
+      "name": " Owner Check-in Notification",
+      "webhookId": "2d17c08a-321e-4272-8e60-8b33ff5b9ce8"
+    },
+    {
+      "parameters": {
+        "chatId": "6268282507",
+        "text": "=🏋️ SareX Gym — Membership Expiry Alert\n\n👤 Member: {{ $json.firstName }} \n📧 Email: {{ $json.fields['Email'] }} \n📞 Phone: {{ $json.fields['Phone Number'] }} \n📋 Plan: {{ $json.fields['Plan'] }}\n📅 End Date: {{ $json.fields['End Date'] }} \n⏰ Days Left: {{ $json.daysLeft }} days \n\n⚠️ Please follow up with this member to renew their plan!",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1056,
+        656
+      ],
+      "id": "87f4336d-dec3-4fdf-882d-fe78f912890f",
+      "name": "OwnerNotfication",
+      "webhookId": "26be9b2a-e18e-4b49-a6f5-2857da994c4a",
+      "alwaysOutputData": false,
+      "executeOnce": true
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "gym-renewal",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        112,
+        1328
+      ],
+      "id": "77a011f4-a496-4353-b6ce-393594a2c42f",
+      "name": "Webhook2",
+      "webhookId": "6182aed2-729f-49be-a59f-3c6e4e2fb1e5"
+    },
+    {
+      "parameters": {
+        "jsCode": "const airtableRecord = $input.first();\n\n// Get plan from airtable current record\nconst fullName = airtableRecord.json.fields['Full Name'];\nconst email = airtableRecord.json.fields['Email'];\n\n// Get plan from airtable \nconst planRaw = airtableRecord.json.fields['Plan'];\nconst plan = planRaw;\n\nconst today = DateTime.now().setZone('Africa/Lagos');\n\nlet newEndDate;\nif (plan.includes('Weekly')) {\n  newEndDate = today.plus({ weeks: 1 });\n} else if (plan.includes('1 Months')) {\n  newEndDate = today.plus({ months: 1 });\n} else if (plan.includes('3 Months')) {\n  newEndDate = today.plus({ months: 3 });\n} else {\n  newEndDate = today.plus({ months: 6 });\n}\n\nreturn [{\n  json: {\n    recordId: airtableRecord.json.id,\n    fullName: fullName,\n    firstName: fullName.split(' ')[0],\n    email: email,\n    plan: plan,\n    newStartDate: today.toFormat('yyyy-MM-dd'),\n    newEndDate: newEndDate.toFormat('yyyy-MM-dd'),\n    newStartDateFormatted: today.toFormat('dd MMMM yyyy'),\n    newEndDateFormatted: newEndDate.toFormat('dd MMMM yyyy'),\n    totalCheckins: airtableRecord.json.fields['Total Check-ins'] ?? 0\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        544,
+        1328
+      ],
+      "id": "5785fbff-e8ca-4e68-9818-3df5038aaf94",
+      "name": "Code in JavaScript5"
+    },
+    {
+      "parameters": {
+        "operation": "search",
+        "base": {
+          "__rl": true,
+          "value": "appxQYTFxoHS5OGTn",
+          "mode": "list",
+          "cachedResultName": "SareX GYM",
+          "cachedResultUrl": "https://airtable.com/appxQYTFxoHS5OGTn"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblWHPylYgGFNXxTb",
+          "mode": "list",
+          "cachedResultName": "Table 1",
+          "cachedResultUrl": "https://airtable.com/appxQYTFxoHS5OGTn/tblWHPylYgGFNXxTb"
+        },
+        "filterByFormula": "={Email} = '{{ $json.body.submission.questions[1].value }}'",
+        "returnAll": false,
+        "limit": 1,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        336,
+        1328
+      ],
+      "id": "fcf2f4dc-9c18-4a07-8070-23254dd6a082",
+      "name": "Search records2"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "base": {
+          "__rl": true,
+          "value": "appxQYTFxoHS5OGTn",
+          "mode": "list",
+          "cachedResultName": "SareX GYM",
+          "cachedResultUrl": "https://airtable.com/appxQYTFxoHS5OGTn"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblWHPylYgGFNXxTb",
+          "mode": "list",
+          "cachedResultName": "Table 1",
+          "cachedResultUrl": "https://airtable.com/appxQYTFxoHS5OGTn/tblWHPylYgGFNXxTb"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "id": "={{ $json.recordId }}",
+            "Plan": "={{ $json.plan }}",
+            "Start Date": "={{ $json.newStartDate }}",
+            "End Date": "={{ $json.newEndDate }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": false
+            },
+            {
+              "id": "Full Name",
+              "displayName": "Full Name",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Phone Number",
+              "displayName": "Phone Number",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Address",
+              "displayName": "Address",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Gender",
+              "displayName": "Gender",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Male",
+                  "value": "Male"
+                },
+                {
+                  "name": "Female",
+                  "value": "Female"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Plan",
+              "displayName": "Plan",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Emergency Name",
+              "displayName": "Emergency Name",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Emergency Phone",
+              "displayName": "Emergency Phone",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Start Date",
+              "displayName": "Start Date",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "End Date",
+              "displayName": "End Date",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Profile Picture",
+              "displayName": "Profile Picture",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Last Check-in",
+              "displayName": "Last Check-in",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Total Check-ins",
+              "displayName": "Total Check-ins",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {
+          "typecast": true
+        }
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        800,
+        1328
+      ],
+      "id": "0b47a189-a77a-4f82-a446-1f671af580d1",
+      "name": "Update record1"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Code in JavaScript5').item.json.email }}",
+        "subject": "🎉 Membership Renewed — SareX Gym",
+        "message": "=<!DOCTYPE html>\n<html>\n<body style=\"margin:0; padding:0; background-color:#0f0f0f; font-family: Arial, sans-serif;\">\n  <table width=\"100%\" style=\"padding:30px 0; background-color:#0f0f0f;\">\n    <tr>\n      <td align=\"center\">\n        <table width=\"600\" style=\"background-color:#1a1a1a; border-radius:10px; overflow:hidden;\">\n          \n          <!-- HEADER -->\n          <tr>\n            <td style=\"background-color:#1a1a1a; padding:30px; text-align:center;\">\n              \n              <!-- LOGO -->\n              <img src=\"https://i.imgur.com/b85MepO.png\" \n                   alt=\"SareX Gym Logo\" \n                   style=\"width:150px; max-width:100%; display:block; margin:0 auto 15px auto;\">\n\n              <h1 style=\"color:#FF6600; margin:0;\">SAREX GYM</h1>\n              <p style=\"color:#ffffff; margin:5px 0 0 0; font-size:12px;\">\n                STRENGTH • DISCIPLINE • RESULTS\n              </p>\n            </td>\n          </tr>\n\n          <!-- ORANGE LINE -->\n          <tr>\n            <td style=\"background-color:#FF6600; height:5px;\"></td>\n          </tr>\n\n          <!-- BODY -->\n          <tr>\n            <td style=\"padding:40px;\">\n              \n              <h2 style=\"color:#ffffff;\">🎉 Membership Renewed!</h2>\n\n              <p style=\"color:#cccccc; font-size:15px;\">\n                Hey <strong style=\"color:#FF6600;\">\n                {{ $json.fields['Full Name'].split(' ')[0] }}\n                </strong>, your membership has been successfully renewed! 💪\n              </p>\n\n              <!-- DETAILS BOX -->\n              <table width=\"100%\" style=\"background-color:#111111; border-radius:8px; border-left:5px solid #FF6600; margin-top:20px;\">\n                <tr>\n                  <td style=\"padding:25px;\">\n                    <table width=\"100%\">\n                      \n                      <tr>\n                        <td style=\"color:#999999; font-size:14px; padding:8px 0; border-bottom:1px solid #333;\">\n                          📋 Plan\n                        </td>\n                        <td style=\"color:#ffffff; font-size:14px; padding:8px 0; border-bottom:1px solid #333; text-align:right;\">\n                          {{ $json.fields['Plan'] }}\n                        </td>\n                      </tr>\n\n                      <tr>\n                        <td style=\"color:#999999; font-size:14px; padding:8px 0; border-bottom:1px solid #333;\">\n                          📅 Start Date\n                        </td>\n                        <td style=\"color:#ffffff; font-size:14px; padding:8px 0; border-bottom:1px solid #333; text-align:right;\">\n                          {{ $json.fields['Start Date'] }}\n                        </td>\n                      </tr>\n\n                      <tr>\n                        <td style=\"color:#999999; font-size:14px; padding:8px 0;\">\n                          🗓️ New End Date\n                        </td>\n                        <td style=\"color:#FF6600; font-size:14px; padding:8px 0; text-align:right;\">\n                          {{ $json.fields['End Date'] }}\n                        </td>\n                      </tr>\n\n                    </table>\n                  </td>\n                </tr>\n              </table>\n\n              <p style=\"color:#cccccc; font-size:14px; margin-top:25px; text-align:center;\">\n                Welcome back. Stay consistent and keep building strength 🔥\n              </p>\n\n            </td>\n          </tr>\n\n          <!-- ORANGE LINE -->\n          <tr>\n            <td style=\"background-color:#FF6600; height:5px;\"></td>\n          </tr>\n\n          <!-- FOOTER -->\n          <tr>\n            <td style=\"background-color:#1a1a1a; padding:20px; text-align:center;\">\n              <p style=\"color:#777777; font-size:12px; margin:0;\">\n                © 2026 SareX Gym • Built for Strength\n              </p>\n            </td>\n          </tr>\n\n        </table>\n      </td>\n    </tr>\n  </table>\n</body>\n</html>",
+        "options": {
+          "appendAttribution": false,
+          "senderName": "SareX Gym"
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1008,
+        1328
+      ],
+      "id": "98b59213-2fa6-4a20-87b9-c5028f2f2813",
+      "name": "Send a message",
+      "webhookId": "93907ea0-fa81-4ab2-8cce-d7b75a15d554"
+    },
+    {
+      "parameters": {
+        "content": "CHECK-IN",
+        "height": 96,
+        "width": 150
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        32,
+        944
+      ],
+      "typeVersion": 1,
+      "id": "981c0202-f5ac-4c92-b915-ea4f0196bc97",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "3 DAYS WARNING ",
+        "height": 80,
+        "width": 150
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -80,
+        576
+      ],
+      "typeVersion": 1,
+      "id": "c118d1f2-70bc-4ef6-b037-4dbcb5d7c902",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "RENEWED",
+        "height": 80,
+        "width": 150
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -96,
+        1312
+      ],
+      "typeVersion": 1,
+      "id": "aae117c1-c18c-43dd-9c56-bde610b2ae67",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\n\nfor (const item of items) {\n  console.log('Full item:', JSON.stringify(item.json));\n}\n\nreturn items;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1056,
+        912
+      ],
+      "id": "1a3c0781-bfea-4083-b736-0617a054c0c6",
+      "name": "Code in JavaScript3"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "10e40ff1-c81e-4f57-8126-8b8b33e39675",
+              "leftValue": "={{ $json.body.submission.questions[8].value }}",
+              "rightValue": "",
+              "operator": {
+                "type": "array",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -64,
+        272
+      ],
+      "id": "908c9441-81dc-419e-87fe-6631bc0d39c9",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "content": "REGISTRATION \nWITH PIC",
+        "height": 80,
+        "width": 150
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -448,
+        320
+      ],
+      "typeVersion": 1,
+      "id": "97a3a21b-74a6-4e74-b891-9b1973e6a017",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "chatId": "6268282507",
+        "text": "=Membership Renewed - SareX Gym\n\nA member has just renewed their membership!\n\nMember: {{ $('Code in JavaScript5').item.json.fullName }}\n\nEmail: {{ $('Code in JavaScript5').item.json.email }}\n\nPlan:{{ $('Code in JavaScript5').item.json.plan }} \n\nStart Date:{{ $('Code in JavaScript5').item.json.newStartDateFormatted }}\n\nNew End Date: {{ $('Code in JavaScript5').item.json.newEndDateFormatted }}\n\nPlease update your records accordingly.",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1216,
+        1328
+      ],
+      "id": "e1c58820-3e92-4835-a1f6-ef98a880fa9d",
+      "name": "owner update",
+      "webhookId": "ab7fbd39-c352-4a43-a302-71819f7b5ff0"
+    },
+    {
+      "parameters": {
+        "content": "REGISTERATION\nWITH NO PIC",
+        "height": 80,
+        "width": 150
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -208,
+        16
+      ],
+      "typeVersion": 1,
+      "id": "e03bb7be-b9fe-48d6-bdef-336e909586ad",
+      "name": "Sticky Note5"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 7
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        96,
+        1664
+      ],
+      "id": "cc8bdcd9-2c01-4128-94b8-45efd2112236",
+      "name": "Schedule Trigger1"
+    },
+    {
+      "parameters": {
+        "operation": "search",
+        "base": {
+          "__rl": true,
+          "value": "appxQYTFxoHS5OGTn",
+          "mode": "list",
+          "cachedResultName": "SareX GYM",
+          "cachedResultUrl": "https://airtable.com/appxQYTFxoHS5OGTn"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblWHPylYgGFNXxTb",
+          "mode": "list",
+          "cachedResultName": "Table 1",
+          "cachedResultUrl": "https://airtable.com/appxQYTFxoHS5OGTn/tblWHPylYgGFNXxTb"
+        },
+        "filterByFormula": "={Plan} != ''",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        368,
+        1664
+      ],
+      "id": "d5033ce4-2e2a-4024-857e-7ff68326b45b",
+      "name": "Search records3"
+    },
+    {
+      "parameters": {
+        "batchSize": 100,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        576,
+        1664
+      ],
+      "id": "6da0504b-6ed2-4b2a-8c84-554f6b78d57f",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o",
+          "mode": "list",
+          "cachedResultName": "GPT-4O"
+        },
+        "responses": {
+          "values": [
+            {
+              "content": "={{ $json.prompt }}"
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2.1,
+      "position": [
+        1168,
+        1792
+      ],
+      "id": "48c2d202-4f68-4fee-af5c-112a7bf94e57",
+      "name": "Message a model"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst today = new Date().toLocaleDateString('en-US', {weekday: 'long'});\n\nreturn items.map(item => {\n  const name = item.json.fields['Full Name'].split(' ')[0];\n  const gender = item.json.fields['Gender'];\n  const plan = item.json.fields['Plan'];\n  const email = item.json.fields['Email'];\n\n  return {\n    json: {\n      prompt: `Generate ONLY today's (${today}) workout and meal plan for ${name}, a ${gender} on the ${plan} gym plan. Just today, not the whole week. Keep it short and motivating.`,\n      email: email,\n      name: name\n    }\n  };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        928,
+        1808
+      ],
+      "id": "74b7525f-4f4b-40eb-aaba-14b27910837d",
+      "name": "Code in JavaScript4"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Loop Over Items').item.json.fields['Email'] }}",
+        "subject": "=Your Daily Workout & Meal Plan - SareX GYM",
+        "message": "=<!DOCTYPE html>\n<html>\n<body style=\"margin:0; padding:0; background-color:#0f0f0f; font-family: Arial, sans-serif;\">\n  <table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"padding:30px 0; background-color:#0f0f0f;\">\n    <tr>\n      <td align=\"center\">\n        <table width=\"600\" cellpadding=\"0\" cellspacing=\"0\" style=\"background-color:#1a1a1a; border-radius:10px; overflow:hidden;\">\n          <!-- HEADER -->\n          <tr>\n            <td style=\"background-color:#000000; padding:25px; text-align:center; border-bottom:3px solid #FF6600;\">\n              <img src=\"https://i.imgur.com/b85MepO.png\" \n                   alt=\"SareX Gym Logo\" \n                   style=\"width:140px; display:block; margin:0 auto 15px auto;\">\n              <h1 style=\"color:#FF6600; font-size:26px; margin:0;\">SAREX GYM</h1>\n              <p style=\"color:#ffffff; font-size:12px; letter-spacing:2px; margin:5px 0 0 0;\">\n                STRENGTH • DISCIPLINE • RESULTS\n              </p>\n            </td>\n          </tr>\n          <!-- BODY -->\n          <tr>\n            <td style=\"padding:35px; color:#cccccc;\">\n              <h2 style=\"color:#FF6600; margin-top:0;\">\n                💪 Your Daily Workout & Meal Plan\n              </h2>\n              <p style=\"font-size:15px;\">\n                Hi \n                <strong style=\"color:#FF6600;\">\n                  {{ $('Loop Over Items').item.json.fields['Full Name'].split(' ')[0] }}\n                </strong>,\n              </p>\n              <p style=\"font-size:15px; line-height:1.6;\">\n                Here is your personalized training and nutrition plan for today. Stay consistent and push your limits.\n              </p>\n              <!-- PLAN BOX -->\n              <table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" \n                     style=\"margin-top:20px; background:#111111; border-left:4px solid #FF6600; border-radius:6px;\">\n                <tr>\n                  <td style=\"padding:20px; color:#ffffff; font-size:14px; line-height:1.6; white-space:pre-line;\">\n                    {{ $json.output[0].content[0].text }}\n                  </td>\n                </tr>",
+        "options": {
+          "appendAttribution": false,
+          "senderName": "SareX Gym"
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1536,
+        1792
+      ],
+      "id": "b6fb078f-01e6-4551-9700-f6587645acf3",
+      "name": "Send a message1",
+      "webhookId": "d5023753-cf78-484d-87d1-73184345cff8"
+    },
+    {
+      "parameters": {
+        "content": "AI coach diet"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -208,
+        1632
+      ],
+      "typeVersion": 1,
+      "id": "8a7812ca-b184-4fab-b101-7759fb3cd50a",
+      "name": "Sticky Note2"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a record": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Welcome message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request1": {
+      "main": [
+        [
+          {
+            "node": "Create a record1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a record1": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Wait1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait1": {
+      "main": [
+        [
+          {
+            "node": "Welcome message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Search records",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search records": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript1": {
+      "main": [
+        [
+          {
+            "node": "3 days warning message",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "OwnerNotfication",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook1": {
+      "main": [
+        [
+          {
+            "node": "Search records1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search records1": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript2": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Update record",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Expired Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update record": {
+      "main": [
+        [
+          {
+            "node": " Owner Check-in Notification",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields3": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook2": {
+      "main": [
+        [
+          {
+            "node": "Search records2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search records2": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript5": {
+      "main": [
+        [
+          {
+            "node": "Update record1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update record1": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message": {
+      "main": [
+        [
+          {
+            "node": "owner update",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript3": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Create a record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger1": {
+      "main": [
+        [
+          {
+            "node": "Search records3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search records3": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Code in JavaScript4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript4": {
+      "main": [
+        [
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model": {
+      "main": [
+        [
+          {
+            "node": "Send a message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "3002ac68-febd-42b2-972d-12f29cd60427",
+  "meta": {
+    "instanceId": "27a47a1951afeea990630b6acef9fe20b7a537767d59e4adf582d663c69c22c2"
+  },
+  "id": "SXbbAgZMGujy8mD3",
+  "tags": []
+}

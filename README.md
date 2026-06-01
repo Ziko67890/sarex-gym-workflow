@@ -2,7 +2,6 @@
 
 > From registration to renewal — fully automated. This n8n workflow handles every stage of a gym member's lifecycle without any manual work from the team.
 
-**TSAcademy · AI Automation · Phoenix Cohort · Capstone Project**
 
 ---
 
@@ -62,8 +61,6 @@ Handles membership renewals — updates the plan, recalculates end dates, and se
 4. Connect your registration and check-in forms to the n8n webhook URLs
 5. Activate all three workflows — Registration, Check-In, and Renewal
 
-> ⚠️ **Security reminder:** Never push real API keys or tokens to this repo. Replace all credential values with placeholders before uploading. Store secrets safely in n8n's credentials manager.
 
 ---
 
-*Built with dedication by a Phoenix Cohort student · TSAcademy AI Automation Programme*
